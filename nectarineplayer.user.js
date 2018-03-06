@@ -7,8 +7,42 @@
 // @grant    none
 // @include  https://www.scenemusic.net/player/
 // @require  https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js
-// @require  https://www.scenemusic.net/static/js/dutils.js?v=20170202v02
 // ==/UserScript==
+
+/* Function counter from from demovibes:
+ * https://www.scenemusic.net/static/js/dutils.js?v=20170202v02
+ * can not "@require", because greasyfork.org policy
+ */
+function counter() {
+    $("[data-name='counter']").each( function (n) {
+        i = $(this);
+        var counter=1*i.attr("data-sec");
+        var inc=1*i.attr("data-inc");
+        if ((inc<0 && counter>0) || inc>0) {
+            counter=counter+inc;
+
+            i.attr("data-sec",counter);
+            var s=counter;
+            var h=Math.round(Math.floor(s/(60.0*60.0)));
+            s%=(60*60);
+            var m=Math.round(Math.floor(s/60.0));
+            s%=(60);
+            if (s<10) {
+                s="0"+s;
+            }
+            if (h>0 && m<10) {
+                m="0"+m;
+            }
+            try {
+                if (h>0) {
+                    i.text(h+":"+m+":"+s);
+                }else{
+                    i.text(m+":"+s);
+                }
+            }catch(err){} // ignore error
+        }
+    });
+}
 
 function updateSongDetails(data) {
   var songdetails=$(data).find('div[data-name=nowplaying]');
