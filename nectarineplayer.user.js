@@ -2,7 +2,7 @@
 // @name     song info for Nectarine Player
 // @namespace skd.nectarine.player
 // @description Display current song's details (title and time left) in Nectarine Player from scenemusic.net
-// @version  1.0
+// @version  1.1
 // license: GPL
 // @grant    none
 // @include  https://www.scenemusic.net/player/
@@ -56,7 +56,7 @@ function updateSongDetails(data) {
     "font-weight": "bold",
     "text-decoration": "none",
     "color": "#a60"
-  });
+  }).attr("target", "_blank");
 }
 
 function setupUpdateSongDetails(delaysec) {
